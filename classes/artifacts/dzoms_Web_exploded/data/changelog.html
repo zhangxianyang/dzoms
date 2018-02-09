@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>更新日志</title>
+</head>
+<body>
+<h1>2017-10-26 更新记录</h1>
+<ul>
+	<li>驾驶员修改页面的表单验证</li>
+	<li>事故录入页面加长</li>
+	<li>例会管理<br>
+		<ul>
+			<li>例会签到页面拆分</li>
+			<li>例会客户端多次签到后资源消耗问题</li>
+		</ul>
+	</li>
+</ul>
+
+<h1>2017-09-25 更新记录</h1>
+<ul>
+	<li>修正车辆转包选取前一份合同错误的问题<br>
+		<ul>
+			<li>\web\vehicle\CreateApproval\vehicle_approval01.jsp 第201行选取合同的查询语句修改</li>
+			<li>原语句为<code>from Contract c where c.state=1 and c.carframeNum in (select v.carframeNum from Vehicle v where v.licenseNum='"+licenseNum+"') order by <em style="color: red;">contractBeginDate</em> desc </code></li>
+			<li>修改为<code>from Contract c where c.state=1 and c.carframeNum in (select v.carframeNum from Vehicle v where v.licenseNum='"+licenseNum+"') order by <em style="color: red;">id</em> desc </code></li>
+		</ul>
+	</li>
+	<li>修正银行卡删除不完全的问题<br>
+		<ul>
+			<li>\src\main\java\com\dz\module\contract\ContractAction.java 第86行修改</li>
+			<li>原语句为<code>delete from BankCardOfVehicle where <em style="color: red;">vehicle.carframeNum</em>=:cardId</code></li>
+			<li>修改为<code>delete from BankCardOfVehicle where <em style="color: red;">bankCard.id</em>=:cardId</code></li>
+		</ul>
+	</li>
+</ul>
+
+<h1>2017-09-21 更新记录</h1>
+<ul>
+	<li>银行卡管理<br>
+	<ul>
+		<li>新增银行卡--人员关联查询功能</li>
+		<li>导入副驾的银行卡信息</li>
+		<li>数据库修改<code>INSERT INTO `dzomsdb`.`authority` (`aid`, `aname`, `gname`, `mname`, `tname`, `url`, `order`, `cssClass`, `icon`, `visible`, `frameSize`, `img`) VALUES ('419', '银行卡驾驶员关联查询', '财务', '银行卡管理', '银行卡--驾驶员', 'contract/bank_card/search_driver_about_bankcard.jsp', '4', NULL, NULL, '', '2500', NULL);
+		</code><code>INSERT INTO `dzomsdb`.`relation_ra` (`id`, `rid`, `aid`) VALUES ('868', '107', '419');
+		</code></li>
+	</ul>
+	</li>
+	<li>驾驶员管理<br>
+	<ul>
+		<li>驾驶员上下车记录导出Excel</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-08-10 更新记录</h1>
+<ul>
+	<li>运营数据管理<br>
+	<ul>
+		<li>导入的Excel文件数据格式发生变化，重写相关代码</li>
+	</ul>
+	</li>
+	<li>车辆管理<br>
+	<ul>
+		<li>计价器查询页面，新增查询条件(车牌号、计价器号)</li>
+		<li>经营权信息查询页面，新增查询条件(经营权号、车牌号)</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-08-08 更新记录</h1>
+<ul>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉可落实到过往一年内的驾驶员身上</li>
+	</ul>
+	</li>
+	<li>车辆管理<br>
+	<ul>
+		<li>车辆信息导出Excel</li>
+		<li>保险续保窗口信息导出Excel</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-08-03 更新记录</h1>
+<ul>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉Excel文件导出</li>
+		<li>投诉打印信息修改及格式调整</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-07-31 更新记录</h1>
+<ul>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉处理时增加一项处理结果可填写</li>
+		<li>需要对数据库进行修改<code>ALTER TABLE `complain` ADD COLUMN `dealContext`  varchar(255) NULL AFTER `complain_context`;</code></li>
+		<li>放宽投诉打印条件，只需处理完即可打印</li>
+	</ul>
+	</li>
+</ul>
+	
+<h1>2017-07-28 更新记录</h1>
+<ul>
+	<li>证照管理<br>
+	<ul>
+		<li>驾驶员管理上下车记录查询中查询结果添加记录总数（统计时需要），加入按分部或全部查询</li>
+	</ul>
+	</li>
+</ul>
+<ul>
+	<li>消息通知<br>
+	<ul>
+		<li>新车合同签定完成后，对证照员、分部经理进行消息通知</li>
+	</ul>
+	</li>
+</ul>
+	
+<h1>2017-07-27 更新记录</h1>
+<ul>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉落实和回访时都可以增加图片文件内容（不限定文件种类）</li>
+		<li>投诉内容可在落实和回访时进行修改</li>
+	</ul>
+	</li>
+</ul>
+<ul>
+	<li>浏览器文件上传组件修正</li>
+</ul>
+
+<h1>2017-07-26 更新记录</h1>
+<ul>
+	<li>发票管理<br>
+	<ul>
+		<li>发票发放时自动出现的下一票号延续上次发放票号，若上次已发完整箱则自动出现的票号为空</li>
+		<li>客户端更新，<a href="/DZOMS/download?path=%2fdata%2fother%2fDzLocal.exe">点击下载客户端更新</a>下载后在程序目录覆盖即可</li>
+	</ul>
+	</li>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉查询窗口中，可按车号查询</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-07-24 更新记录</h1>
+<ul>
+	<li>发票管理<br>
+	<ul>
+		<li>发票发放记录打印表调整</li>
+	</ul>
+	</li>
+	<li>投诉管理<br>
+	<ul>
+		<li>投诉处理时，确认和落实功能需要合并到一个步骤来完成</li>
+		<li>投诉处理过程中的所有功能权限都可以分配</li>
+		<li>投诉落实、回访、补充登记录操作人及时间</li>
+		<li>回访操作时，可修改上一步骤落实中操作的属实不属实</li>
+		<li>投诉处理时，应该有按分部查询下方数据</li>
+	</ul>
+	</li>
+</ul>
+
+<h1>2017-07-20 更新记录</h1>
+<ul>
+	<li>发票管理<br>
+	<ul>
+		<li>发票发放时自动出现的下一票号只能是库存中存在的票号，如库存为0则自动出现的票号为空</li>
+		<li>发票客户端在选择驾驶员或驾驶员按完指纹后，右上方的照片显示全为红色，未正常显示，大小缩放</li>
+		<li>客户端更新，<a href="/DZOMS/download?path=%2fdata%2fother%2fDzLocal.zip">点击下载客户端更新</a></li>
+	</ul>
+	</li>
+	<li>例会管理<br>
+	<ul>
+		<li>例会计划导出的文件格式修正</li>
+		<li>在籍驾驶员导出文件，在驾驶员查询页面新增用于例会的Excel导出表</li>
+	</ul>
+	</li>
+</ul>
+</body>
+</html>
